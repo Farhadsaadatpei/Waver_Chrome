@@ -1,0 +1,45 @@
+{
+  "name": "Waver",
+  "version": "1.0.0",
+  "description": "Waver, control your buying habits and get the things you want.",
+  "main": "src/js/app.js",
+  "scripts": {
+    "watch": "webpack --watch --progress",
+    "start": "webpack --watch -p --progress",
+    "build": "webpack -p --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Farhadsaadatpei/Waver_Chrome"
+  },
+  "keywords": [
+    "babel",
+    "bootstrap",
+    "webpack",
+    "sass"
+  ],
+  "author": "Farhad Saadatpei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Farhadsaadatpei/Waver_Chrome/issues"
+  },
+  "homepage": "https://github.com/Farhadsaadatpei/Waver_Chrome#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "bootstrap": "^4.3.1",
+    "css-loader": "^2.1.0",
+    "jquery": "^3.3.1",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "popper.js": "^1.14.7",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.511.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+    "name": "Waver",
+    "manifest_version": 2,
+    "version": "1.0",
+    "description": "Waver, control your buying habits and get the things you want.",
+    "browser_action": {
+        "default_title": "Waver",    
+        "default_popup": "popup.html"
+      }
+  }
