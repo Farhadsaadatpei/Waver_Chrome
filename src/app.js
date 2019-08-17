@@ -7,23 +7,18 @@ import './scss/app.scss'
 /**
  * JS Compile 
 */
-import Vue from 'vue';
-import 'bootstrap'
 import 'aws-sdk/clients/dynamodb'
 import './js/aws_auth'
-
-/**
- * Vue Components
- */
+import 'bootstrap'
+import Vue from 'vue'
+import App from './js/app.vue'
 
 /**
  * Init Vue
  */
 var app = new Vue({
     el: '#app',
-    data: {
-      message: 'Hello Vue!'
-    }
+    render: h => h(App)
   })
 
 

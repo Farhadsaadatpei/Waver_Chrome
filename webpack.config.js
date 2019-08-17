@@ -4,6 +4,7 @@
 
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     mode: 'none',
@@ -44,12 +45,17 @@ module.exports = {
                 { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
                 { loader: 'sass-loader', options: { sourceMap: true } },
             ],
+          },
+          {
+            test: /\.vue$/,
+            loader: 'vue-loader'
           }
         ]
       },
       plugins: [
         new MiniCssExtractPlugin({
             filename: "app.bundle.css",
-        })
+        }),
+        new VueLoaderPlugin()
       ]
 }
