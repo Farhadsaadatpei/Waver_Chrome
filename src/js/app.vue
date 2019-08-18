@@ -1,30 +1,44 @@
 <template>
   <div id="app">
-    <nav>
-      <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login" aria-selected="true">login</a>
-        <a class="nav-item nav-link" id="nav-signup-tab" data-toggle="tab" href="#nav-signup" role="tab" aria-controls="nav-signup" aria-selected="false">signup</a>
-      </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
-        <login></login>
-      </div>
-      <div class="tab-pane fade" id="nav-signup" role="tabpanel" aria-labelledby="nav-signup-tab">
-        <signup></signup>
-      </div>
-    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Login from './components/login.vue'
-import Signup from  './components/signup.vue'
+// AWS 
+import AWS from 'aws-sdk'
+import './aws_auth'
+import * as AmazonCognitoIdentity from  'amazon-cognito-identity-js';
+
+// Create Pool Object 
+var PoolData = { 
+    UserPoolId: 'us-east-1_na4CCQL42',
+    ClientId: '5gi24c3d8cat153g9msbtr22mb'
+};
+
+var UserPool = new AmazonCognitoIdentity.CognitoUserPool(PoolData);
+var cognitoUser = UserPool.getCurrentUser();
+
+
 export default {
-  components: {
-    Login,
-    Signup
+  name: 'app',
+  mounted: function () {
+    this.getSessionStatus()
+  },
+  methods: {
+    getSessionStatus: function(){
+      var self = this
+      if (cognitoUser != null) {
+        // Check If user still loggedIn
+        cognitoUser.getSession(function(err, session) {
+            if (err) { console.log(err); return; }
+            // User session still valid. Route User to Account
+            self.$router.push({ name: 'Account' })
+        });
+      }
+    }
   }
+
 }
 </script>
 

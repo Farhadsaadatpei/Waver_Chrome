@@ -1,32 +1,36 @@
 <template>
-    <div class="container py-3" id="account">
-        <div class="row">
-            <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small>3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                <small>Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small class="text-muted">3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small class="text-muted">3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
-            </div>
-        </div>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Waverit</a>
+        <a class="nav-item nav-link" href="#" v-on:click='logOut'>Logout</a>
+    </nav>
 </template>
+
+<script>
+
+// AWS 
+import AWS from 'aws-sdk'
+import '../aws_auth'
+import * as AmazonCognitoIdentity from  'amazon-cognito-identity-js';
+
+// Create Pool Object 
+var PoolData = { 
+    UserPoolId: 'us-east-1_na4CCQL42',
+    ClientId: '5gi24c3d8cat153g9msbtr22mb'
+};
+
+var UserPool = new AmazonCognitoIdentity.CognitoUserPool(PoolData);
+var cognitoUser = UserPool.getCurrentUser();
+
+export default {
+    name: 'Account',
+    methods: {
+        logOut: function(){
+            self = this
+            if(cognitoUser != null){
+                cognitoUser.signOut();
+                self.$router.push({ name: 'Welcome' })
+            }
+        }
+    }
+}
+</script>

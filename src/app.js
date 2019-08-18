@@ -10,35 +10,14 @@ import './scss/app.scss'
 import 'bootstrap'
 import Vue from 'vue'
 import App from './js/app.vue'
+import router from './js/router'
 
 /**
  * Init Vue
  */
 var app = new Vue({
     el: '#app',
+    router,
     render: h => h(App)
   })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var docClient = new AWS.DynamoDB.DocumentClient();
-// var params = {
-//     TableName: "waver"
-// };
-// docClient.scan(params).eachPage((err, data, done) => {
-//     if (data != null) {
-//         console.log(data);
-//     }
-//     done();
-// });
