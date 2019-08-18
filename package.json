@@ -44,6 +44,7 @@
   "dependencies": {
     "amazon-cognito-identity-js": "^3.0.15",
     "aws-sdk": "^2.511.0",
+    "vee-validate": "^2.2.15",
     "vue": "^2.6.10",
     "vue-router": "^3.1.2"
   }

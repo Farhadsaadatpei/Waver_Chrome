@@ -2,10 +2,10 @@
     <div class="container py-3">
         <form @submit.prevent="login">
         <div class="form-group">
-            <input type="email" class="form-control" v-model="email" placeholder="Enter email">
+            <input type="email" class="form-control" v-model="email" placeholder="Enter email" required>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" v-model="password" placeholder="Password">
+            <input type="password" class="form-control" v-model="password" placeholder="Password" required>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
         </form>
@@ -50,19 +50,22 @@ export default {
                 Username : this.email,
                 Pool : UserPool
             };
-            var cognitoUser = new AmazonCognitoIdentity.CognitoUser(UserData);
 
-            // Authenticate The User
-            cognitoUser.authenticateUser(authenticationDetails, {
-                onSuccess: function (result) {
-                    self.$router.push({ name: 'Account' })
-                },
+            if(this.email != null && this.password != null ) {
+                var cognitoUser = new AmazonCognitoIdentity.CognitoUser(UserData);
 
-                onFailure: function(err) {
-                    console.log(err);
-                },
+                // Authenticate The User
+                cognitoUser.authenticateUser(authenticationDetails, {
+                    onSuccess: function (result) {
+                        self.$router.push({ name: 'Account' })
+                    },
 
-            });
+                    onFailure: function(err) {
+                        alert(err.message);
+                    },
+
+                });
+            }
         }
     }
 }
