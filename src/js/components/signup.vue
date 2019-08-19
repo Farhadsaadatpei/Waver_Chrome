@@ -118,6 +118,7 @@ export default {
 
                                 // Ask User to Verify their email.
                                 alert('Check your Email. verify your account by clicking on the link send to your email.');
+                                
                             }
                         })
                     }
