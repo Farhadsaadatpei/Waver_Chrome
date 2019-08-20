@@ -1,15 +1,18 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"></a>
-            <small><a class="text-secondary" href="#">Add</a></small>
+            <div>
+                <a class="navbar-brand" href="#"></a><small>Hi, {{userAttributes.given_name}}.</small>
+            </div>
+            <small><a class="text-secondary" href="#"> My Account</a></small>
         </nav>
         <div class="container-fluid p-0">
+            <div class="h-25 px-2 text-secondary">
+                <small>Blocked Items</small>
+            </div>
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action rounded-0">
-                    <div class="d-block w-100 ">
-                        <small>{{currentTitle}}</small> <img v-if="currentFavicon != null" width="16" height="16" v-bind:src="currentFavicon" />
-                    </div>
+                    
                 </a>
             </div>
         </div>
@@ -17,7 +20,7 @@
             <div class="row">
                 <div class="col-6"></div>
                 <div class="col-6 text-right">
-                    <small>Hi, {{userAttributes.given_name}}. <a class="d-inline text-secondary" href="#" v-on:click='logOut'>Logout</a></small>
+                    <small><a class="d-inline text-secondary" href="#" v-on:click='logOut'>Logout</a></small>
                 </div>
             </div>
         </div>
@@ -30,6 +33,10 @@
 import AWS from 'aws-sdk'
 import '../aws_auth'
 import * as AmazonCognitoIdentity from  'amazon-cognito-identity-js';
+
+// DyanmoDB Doc Client
+var docClient = new AWS.DynamoDB.DocumentClient();
+var dynamoDB = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 // Create Pool Object 
 var PoolData = { 
@@ -52,10 +59,11 @@ export default {
     },
     mounted: function () {
         // Create a Table in DynamoDB for first time users. 
-        this.getUserInfo();
+        this.userInit();
 
         // Get Current Browser Data
         this.getCurrentTabData();
+
     },
     methods: {
         getCurrentTabData: function(){
@@ -66,7 +74,7 @@ export default {
                 self.currentFavicon = tabs[0].favIconUrl
             });
         },
-        getUserInfo: function(){
+        userInit: function(){
             self = this
             if (cognitoUser != null) {
                 cognitoUser.getSession(function (err, session) {
@@ -77,15 +85,44 @@ export default {
                             return;
                         }
 
-                        console.log(response);
                         // Store User Data in Attribute
                         for (let i = 0; i < response.length; i++) {
                             self.$set(self.userAttributes, response[i].getName(), response[i].getValue())
                         }
+
+                        // Create Dynamo Database User doesn't have one
+                        self.createDynamoDBUserRow();
                     });
 
                 });
             }
+        },
+        createDynamoDBUserRow: function(){
+            self = this
+            let params = {
+                TableName: 'waver_items',
+                KeyConditionExpression: 'email = :email',
+                ExpressionAttributeValues: { ':email': self.userAttributes.email} 
+            };
+
+            docClient.query(params, function(err, data) {
+                if (err) { alert(err.message)} else {
+                    // If User DB, if Dosen't Exist (Count 0).
+                    if(data.Count == 0) {
+                        var params = {
+                            TableName: 'waver_items',
+                            Item: {
+                                "email": { "S": self.userAttributes.email },
+                                "items": { "L": [] }
+                            }
+                        };
+
+                        dynamoDB.putItem(params, function(err, data) {
+                            if (err) { alert(err.message)} 
+                        });
+                    }
+                }
+            });
         },
         logOut: function(){
             self = this
