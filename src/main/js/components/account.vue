@@ -2,9 +2,16 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div>
-                <a class="navbar-brand" href="#"></a><small>Hi, {{userAttributes.given_name}}.</small>
+                <a class="navbar-brand d-inline" href="#"><img class="rounded-circle" width="34" :src="profileImage ? profileImage : 'images/blank_profile.png'"></a>
+                <small class="d-inline">
+                    Hi, {{userAttributes.given_name}}. 
+                    <a class="text-secondary" href="#"> My Account</a>
+                </small>
             </div>
-            <small><a class="text-secondary" href="#"> My Account</a></small>
+            <div>
+                <div href="#" id="waver-dot"></div>
+                <b-tooltip :show.sync="show" placement="left" target="waver-dot" custom-class="block-tooltip">Block: {{activeURL}}</b-tooltip>
+            </div>
         </nav>
         <div class="container-fluid p-0">
             <div class="h-25 px-2 text-secondary">
@@ -17,10 +24,12 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-6"></div>
-                <div class="col-6 text-right">
+            <div class="row d-flex">
+                <div class="col-6">
                     <small><a class="d-inline text-secondary" href="#" v-on:click='logOut'>Logout</a></small>
+                </div>
+                <div class="col-6 text-right">
+                    
                 </div>
             </div>
         </div>
@@ -52,17 +61,23 @@ export default {
     data: function(){
         return {
             userAttributes: {},
+            profileImage: null,
             currentURL: null,
             currentTitle: null,
             currentFavicon: null,
+            activeURL: null,
+            show: true
         }
     },
-    mounted: function () {
+    created: function () {
         // Create a Table in DynamoDB for first time users. 
         this.userInit();
 
         // Get Current Browser Data
         this.getCurrentTabData();
+
+         // Get Current Browser Detail
+        this.getCurrentBrowserDetail();
 
     },
     methods: {
@@ -122,6 +137,12 @@ export default {
                         });
                     }
                 }
+            });
+        },
+        getCurrentBrowserDetail: function(){
+            self = this
+            chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+                self.activeURL = tabs[0].url;
             });
         },
         logOut: function(){

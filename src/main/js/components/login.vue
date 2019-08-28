@@ -1,11 +1,11 @@
 <template>
     <div class="container py-3">
-        <form @submit.prevent="login">
+        <form @submit.prevent="login" autocomplete="on">
         <div class="form-group">
-            <input type="email" class="form-control" v-model="email" placeholder="Enter email" required>
+            <input type="email" class="form-control" name="email" v-model="email" placeholder="Enter email" required>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" v-model="password" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" v-model="password" placeholder="Password" required>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
         </form>

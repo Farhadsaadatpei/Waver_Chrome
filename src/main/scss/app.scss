@@ -1,6 +1,7 @@
-
-// Vendors
-@import '../../../node_modules//bootstrap/scss/bootstrap.scss';
+// Vendor
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
 
 // Custom CSS
-@import './partials/base'
+@import './partials/base';
+@import './partials/dot';
