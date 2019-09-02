@@ -1,14 +1,19 @@
 <template>
     <div class="container py-3">
         <form @submit.prevent="login" autocomplete="on">
-        <div class="form-group">
-            <input type="email" class="form-control" name="email" v-model="email" placeholder="Enter email" required>
+        <div class="form-group my-1">
+            <input type="email" class="form-control" name="email" v-model="email" placeholder="Email Address" required>
         </div>
-        <div class="form-group">
+        <div class="form-group my-1">
             <input type="password" class="form-control" name="password" v-model="password" placeholder="Password" required>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary mt-2 blue-navy-button">Login</button>
         </form>
+        <div class="col-12 mt-3">
+            <small>
+                <a href="#" v-on:click="forgot" class="text-secondary"><i class="fas fa-unlock-alt"></i> Forgot your password?</a>
+            </small>    
+        </div>
     </div>
 </template>
 
@@ -26,7 +31,11 @@ export default {
         }
     }, 
     methods: {
-        login(){
+        forgot: function(){
+            self = this
+            self.$router.push({ name: 'forgot' })
+        },
+        login: function(){
             var self = this
             // Authentication Data
             var authenticationData = {

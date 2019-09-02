@@ -3,5 +3,7 @@
 @import 'node_modules/bootstrap-vue/src/index.scss';
 
 // Custom CSS
+@import './partials/variables';
 @import './partials/base';
+@import './partials/account';
 @import './partials/dot';

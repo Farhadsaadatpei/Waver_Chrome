@@ -1,35 +1,36 @@
 <template>
     <div class="container py-3">
-        <form @submit.prevent="signup" autocomplete="on">
+        <h5 class="mb-0">Create Waver Account</h5>
+        <small class="text-secondary">Waver account allows you to sync across multiple browsers.</small>
+        <form class="mt-3" @submit.prevent="signup" autocomplete="on">
         <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <input id="firstName" type="text" class="form-control" v-model="firstName"  placeholder="First Name" v-validate="'required'" name="First Name">
-                    <small class="form-text text-muted"><span>{{ errors.first('First Name') }}</span></small>
+            <div class="col-6 pr-1">
+                <div class="form-group my-1">
+                    <input id="firstName" type="text" class="form-control" v-model="firstName"  placeholder="First Name" v-validate="'required'" name="first name">
+                    <small class="form-text text-danger"><span>{{ errors.first('first name') }}</span></small>
                 </div>
             </div>
-            <div class="col-6">
-
-                <div class="form-group">
-                    <input id="lastName" type="text" class="form-control" v-model="lastName" v-validate="'required'" name="Last Name"  placeholder="Last Name">
-                    <small class="form-text text-muted"><span>{{ errors.first('Last Name') }}</span></small>
+            <div class="col-6 pl-1">
+                <div class="form-group my-1">
+                    <input id="lastName" type="text" class="form-control" v-model="lastName" v-validate="'required'" name="last name"  placeholder="Last Name">
+                    <small class="form-text text-danger"><span>{{ errors.first('last name') }}</span></small>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <input id="emailAddress" type="email" class="form-control" v-model="email" aria-describedby="emailHelp" placeholder="Enter email" v-validate="'required|email'" name="Email Address">
-            <small id="emailHelp" class="form-text text-muted"><span>{{ errors.first('Email Address') }}</span></small>
+        <div class="form-group my-1">
+            <input id="emailAddress" type="email" class="form-control" v-model="email" aria-describedby="emailHelp" placeholder="Email Address" v-validate="'required|email'" name="email address">
+            <small id="emailHelp" class="form-text text-danger"><span>{{ errors.first('email address') }}</span></small>
         </div>
-        <div class="form-group">
+        <div class="form-group my-1">
             <input id="password" type="password" class="form-control" v-model="password" placeholder="Password"  v-validate="'required|min:8|number|upCase'" name="password" ref="password">
-            <small class="form-text text-muted"><span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span></small>
+            <small class="form-text text-danger"><span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span></small>
         </div>
-        <div class="form-group">
+        <div class="form-group my-1">
             <input id="passwordVerification" type="password" class="form-control" v-model="passwordverification" placeholder="Confirm Password" v-validate="'required|confirmed:password'" name="password_confirmation" data-vv-as="password">
-            <small class="form-text text-muted"><span v-show="errors.has('password_confirmation')" class="help is-danger">{{ errors.first('password_confirmation') }}</span></small>
+            <small class="form-text text-danger"><span v-show="errors.has('password_confirmation')" class="help is-danger">{{ errors.first('password_confirmation') }}</span></small>
         </div>
         
-        <button type="submit" class="btn btn-primary">Sign Up!</button>
+        <button type="submit" class="btn btn-primary blue-navy-button mt-2">Sign Up!</button>
         </form>
         <small id="success-respond" class="text-success"></small>
     </div>

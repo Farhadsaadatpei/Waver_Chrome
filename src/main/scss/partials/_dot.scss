@@ -1,8 +1,8 @@
 #waver-dot {
-    width: 12px;
-    height: 12px;
-    background: red;
-    border: 0;
+    width: 18px;
+    height: 18px;
+    background: $red-primary;
+    border: 2px solid white;
     border-radius: 50%;
     &:hover {
         cursor: pointer;
@@ -12,6 +12,6 @@
 
 /* tooltip background color */
 .block-tooltip .tooltip-arrow ,.block-tooltip .tooltip-inner, .block-tooltip .tooltip-inner::before {
-    background-color: red;
-    border-color: red;
+    background-color: $red-primary;
+    border-color: $red-primary;
  }

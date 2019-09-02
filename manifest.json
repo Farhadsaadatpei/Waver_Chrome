@@ -1,13 +1,28 @@
 {
     "name": "Waver",
     "manifest_version": 2,
-    "version": "1.0",
+    "version": "0.0.1",
     "description": "Waver, control your buying habits and get the things you want.",
     "browser_action": {
         "default_title": "Waver",    
         "default_popup": "popup.html"
     },
+    "icons": { 
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png" 
+    },
+    "background": {
+        "scripts": ["./dist/background.js"],
+        "persistent": true
+    },
+    "content_scripts":[{
+        "matches":[ "<all_urls>" ],
+        "js" : [ "./dist/public.bundle.js"], 
+        "css" : [ "./dist/public.bundle.css"] 
+    }],
     "permissions": [
+        "storage",
         "tabs",
         "<all_urls>"
     ]

@@ -1,12 +1,15 @@
 <template>
-    <dot></dot>
+    <block></block>
 </template>
 
 <script>
-import Dot from '../components/dot.vue'
+
+import Block from '../components/block.vue'
+
 export default {
+    name: 'app',
     components: {
-        Dot,
+        Block
     }
 }
 </script>
