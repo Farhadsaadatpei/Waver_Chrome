@@ -19,4 +19,14 @@ body {
     }
     
 }
+.red-button{
+    background: $red-primary;
+    border-color: $red-primary;
+    border-radius: 2px;
+
+    &:hover, &:focus {
+        background: $red-dark;
+    }
+    
+}
 

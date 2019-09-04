@@ -89,6 +89,28 @@
                 </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-header  p-1 py-2" id="headingThree">
+                <h5 class="mb-0 profile-heading">
+                    <button class="btn btn-link text-secondary collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <i class="fas fa-user-slash"></i> Delete Account
+                    </button>
+                </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <p>Remove your Account.</p>
+                    <form @submit.prevent="deleteAccount">
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary red-button"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -119,14 +141,7 @@ import AWS from 'aws-sdk'
 import '../aws_auth'
 import * as AmazonCognitoIdentity from  'amazon-cognito-identity-js';
 
-// Create Pool Object 
-var PoolData = { 
-    UserPoolId: 'us-east-1_na4CCQL42',
-    ClientId: '5gi24c3d8cat153g9msbtr22mb'
-};
-
-var UserPool = new AmazonCognitoIdentity.CognitoUserPool(PoolData);
-var cognitoUser = UserPool.getCurrentUser();
+var cognitoUser;
 
 export default {
     name: 'Profile',
@@ -140,11 +155,25 @@ export default {
             },
         }
     },
-    created: function(){
+    created: async function(){
+
+        // Create User Pool to Authenticate
+        await this.createUserPool();
+
         // Init User DATA. 
         this.userInit()
     },
     methods: {
+        createUserPool: function(){
+            // Create Pool Object 
+            var PoolData = { 
+                UserPoolId: 'us-east-1_na4CCQL42',
+                ClientId: '5gi24c3d8cat153g9msbtr22mb'
+            };
+
+            var UserPool = new AmazonCognitoIdentity.CognitoUserPool(PoolData);
+            cognitoUser = UserPool.getCurrentUser();
+        },
         account: function(){
             self = this
             if(cognitoUser != null){
@@ -187,6 +216,20 @@ export default {
                 });
             }else {
                 alert('Enter your passwords.')
+            }
+        },
+        deleteAccount: function(){
+            var deleteAccount = confirm("This is a permanent action. You won't be able to retrieve your data anymore. Are you sure?");
+            if(deleteAccount == true){
+
+                // Delete Account from Cognito
+                cognitoUser.deleteUser(function(err, result) {
+                    if (err) { alert(err); return; }
+                    if(result){
+                        // Route the User to Welcome Page
+                        self.$router.push({ name: 'Welcome' })
+                    }
+                });
             }
         },
         userInit: function(){

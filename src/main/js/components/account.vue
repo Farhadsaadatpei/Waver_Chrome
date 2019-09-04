@@ -24,7 +24,12 @@
                 </div>
            </div>
             <div class="list-group" id="blockList">
-            
+                <a v-if="blockList === undefined || blockList.length == 0" class="list-group-item list-group-item-action rounded-0">
+                    <div class="w-100">
+                        <h6 class="mb-1"><i class="far fa-surprise"></i> No URL Blocked.</h6>
+                        <small>It's easy to block a URL, Go to the site and press the red Dot on top.</small>
+                    </div>
+                </a>
                 <a v-for="item in blockList" :href="item.URL" class="list-group-item list-group-item-action rounded-0">
                     <div class="d-flex w-100 justify-content-between">
                     <h6 class="mb-1">{{item.Title}}</h6>
@@ -34,7 +39,7 @@
                         </countdown>
                     </small>
                     </div>
-                    <small><img v-if="item.FaviconURL != null" :src="item.FaviconURL" width="16" height="16">  <span class="block-url d-inline">{{item.URL}}</span></small>
+                    <small><img v-if="item.FaviconURL != null || item.FaviconURL != ' '" :src="item.FaviconURL" width="16" height="16">  <span class="block-url d-inline">{{item.URL}}</span></small>
                 
                 </a>
             </div>
@@ -58,14 +63,7 @@ import * as AmazonCognitoIdentity from  'amazon-cognito-identity-js';
 var docClient = new AWS.DynamoDB.DocumentClient();
 var dynamoDB = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-// Create Pool Object 
-var PoolData = { 
-    UserPoolId: 'us-east-1_na4CCQL42',
-    ClientId: '5gi24c3d8cat153g9msbtr22mb'
-};
-
-var UserPool = new AmazonCognitoIdentity.CognitoUserPool(PoolData);
-var cognitoUser = UserPool.getCurrentUser();
+var cognitoUser;
 
 export default {
     name: 'Account',
@@ -78,12 +76,15 @@ export default {
             currentFavicon: null,
         }
     },
-    created: function () {
+    created: async function () {
         // Get Current Browser Data
         this.getCurrentTabData();
 
+        // Create a Use Pool
+        await this.createUserPool()
+
         // Init User DATA. 
-       this.userInit()
+        this.userInit()
 
     },
     methods: {
@@ -94,6 +95,16 @@ export default {
                 self.currentTitle = tabs[0].title;
                 self.currentFavicon = tabs[0].favIconUrl
             });
+        },
+        createUserPool: function(){
+            // Create Pool Object 
+            var PoolData = { 
+                UserPoolId: 'us-east-1_na4CCQL42',
+                ClientId: '5gi24c3d8cat153g9msbtr22mb'
+            };
+
+            var UserPool = new AmazonCognitoIdentity.CognitoUserPool(PoolData);
+            cognitoUser = UserPool.getCurrentUser();
         },
         userInit: function(){
             self = this

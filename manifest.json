@@ -1,8 +1,8 @@
 {
     "name": "Waver",
     "manifest_version": 2,
-    "version": "0.0.1",
-    "description": "Waver, control your buying habits and get the things you want.",
+    "version": "0.0.2",
+    "description": "URLs Blocker. Productivity by avoiding unwanted habits.",
     "browser_action": {
         "default_title": "Waver",    
         "default_popup": "popup.html"
