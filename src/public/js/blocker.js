@@ -22,18 +22,15 @@ chrome.extension.sendRequest({method: "blockList"}, function(data) {
 
     // Curren URL in Block List, Show Block Screem
     if(result != undefined){
-
-        // Create Vue App Element
-        var app = document.createElement('div');
-        app.id = 'waver-block';
-        document.body.appendChild(app);
-
-        /**
-         * Init Vue for Blocker View
-         */
-        var app = new Vue({
-            el: '#waver-block',
-            render: h => h(App)
-        })
+        // Direct to Block Page
+        window.location.replace(chrome.extension.getURL('./block.html?blockedURL='+currentURL))
     } 
 });
+
+/**
+ * Init Vue for Blocker View
+ */
+var app = new Vue({
+    el: '#block-app',
+    render: h => h(App)
+})

@@ -46,12 +46,13 @@ export default {
                 // Objectify Data
                 var blockList = JSON.parse(data);
 
-                // Get Current Page URL
-                var currentURL = window.location.href
+                // Get Blocked URL
+                var url = new URL(window.location.href);
+                var blockedURL = url.searchParams.get("blockedURL");
 
                 // Search if Item current URL is in the Block List
                 var result = blockList.filter(function (obj) {
-                    return obj.URL === currentURL;
+                    return obj.URL === blockedURL;
                 })[0];
 
                 // Curren URL in Block List, Show Block Screem

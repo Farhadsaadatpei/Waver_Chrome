@@ -1,7 +1,7 @@
 {
     "name": "Waver",
     "manifest_version": 2,
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "URLs Blocker. Productivity by avoiding unwanted habits.",
     "browser_action": {
         "default_title": "Waver",    
@@ -21,6 +21,7 @@
         "js" : [ "./dist/public.bundle.js"], 
         "css" : [ "./dist/public.bundle.css"] 
     }],
+    "web_accessible_resources": ["block.html"],
     "permissions": [
         "storage",
         "tabs",
