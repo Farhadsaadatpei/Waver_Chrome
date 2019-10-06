@@ -9,7 +9,7 @@ Block websites and stay more focus on what's more important. Waver extension all
 
 ## Features
 
-Block List
+**Block List:**
 Add sites to your Block List and Waver will do the rest. Block List displays the countdown to regain access and list of all URLs being block by you.
 
 **Cloud Sync:**
