@@ -22,10 +22,10 @@ Waver model is base on time blocking system, we follow the 24/HR rule. That mean
 Your data is secure, backed by powerful cloud technologies like Google Cloud and AWS, across multiple regions. We understand how important our user's privacy is to them and us.
 
 ## Case Study
-Block eCommerce Websites to Avoid shopping and save money.
-Block Gaming Sites to stay more focus on your school tasks.
-Avoid Adult Contents.
-Avoid Sites that distract you.
+- lock eCommerce Websites to Avoid shopping and save money.
+- Block Gaming Sites to stay more focus on your school tasks.
+- Avoid Adult Contents.
+- Avoid Sites that distract you.
 
 
 
