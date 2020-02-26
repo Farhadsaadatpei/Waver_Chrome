@@ -5,6 +5,6 @@
 import AWS from 'aws-sdk';
 
 AWS.config = new AWS.Config();
-AWS.config.accessKeyId = "AKIAWHGAKZO7KBZQT7GW";
-AWS.config.secretAccessKey = "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";
+AWS.config.accessKeyId = "XXXXXXX";
+AWS.config.secretAccessKey = "XXXXXXXXX";
 AWS.config.region = "us-east-1";
